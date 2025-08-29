@@ -1,0 +1,157 @@
+--== Roblox 脚本汉化器 v1 （雷电定制） ==--
+
+-- 翻译表（通用文本）
+local translations = {
+    -- 左侧菜单
+    ["Main"] = "主菜单",
+    ["Exploits"] = "功能",
+    ["Visuals"] = "视觉",
+    ["Floor"] = "楼层",
+    ["Miscellaneous"] = "杂项",
+    ["Config"] = "配置",
+    ["Addons"] = "插件",
+    ["Notes"] = "说明",
+
+    -- 本地玩家
+    ["WalkSpeed"] = "移动速度",
+    ["Enable Speed Boost"] = "启用加速",
+    ["Enable Jump"] = "启用跳跃",
+    ["Infinite Jump"] = "无限跳跃",
+    ["No Acceleration"] = "无加速度",
+    ["Noclip"] = "穿墙",
+    ["Infinite Crucifix"] = "无限十字架",
+    ["Interact Instant"] = "即时交互",
+    ["Prompt Reach"] = "提示范围",
+    ["Prompt Clip"] = "提示穿透",
+    ["Infinite Shears"] = "无限剪刀",
+    ["Closet Exit Fix"] = "衣柜退出修复",
+    ["Fly Speed"] = "飞行速度",
+    ["Fly"] = "飞行",
+
+    -- 自动化
+    ["Auto Interact"] = "自动交互",
+    ["Auto Library Code"] = "自动图书馆密码",
+    ["Notify Library Code"] = "提示图书馆密码",
+    ["Unlock Padlock Distance"] = "解锁挂锁距离",
+    ["Auto Closet"] = "自动衣柜",
+    ["Spectate Entity (While Hiding)"] = "躲藏时观测实体",
+
+    -- 功能
+    ["Anti-Figure Hearing"] = "防止 Figure 听觉",
+    ["Anti-Eyes"] = "防止 Eyes",
+    ["Anti-Groundskeeper"] = "防止 Groundskeeper",
+    ["Anti-Jamming"] = "防止干扰",
+    ["Anti-Halt"] = "防止 Halt",
+    ["Anti-Void JumpScare"] = "防止虚空惊吓",
+    ["Anti-Glitch JumpScare"] = "防止 Glitch 惊吓",
+    ["Disable Screech"] = "禁用 Screech",
+    ["Disable Dread"] = "禁用 Dread",
+    ["Disable Surge"] = "禁用 Surge",
+    ["Disable A90"] = "禁用 A90",
+    ["Spam Others Tools (FE)"] = "刷别人工具 (FE)",
+    ["Speed Bypass"] = "速度绕过",
+    ["Anticheat Manipulation"] = "反作弊操控",
+
+    -- 视觉
+    ["Entities Notify"] = "实体提示",
+    ["Entities"] = "实体",
+    ["Door"] = "门",
+    ["HidingSpot"] = "躲藏点",
+    ["Key"] = "钥匙",
+    ["Chest"] = "箱子",
+    ["Library Books"] = "图书馆书籍",
+    ["GateLever"] = "大门拉杆",
+    ["Lever"] = "拉杆",
+    ["StarDust"] = "星尘",
+    ["Toolshed"] = "工具棚",
+    ["Breaker"] = "断路器",
+    ["Timer Lever"] = "定时拉杆",
+    ["Generator"] = "发电机",
+    ["Fuse"] = "保险丝",
+    ["Anchor"] = "锚点",
+    ["Electrical Key"] = "电钥匙",
+    ["Water Pump"] = "水泵",
+    ["Players"] = "玩家",
+    ["Items"] = "物品",
+    ["Gold"] = "金币",
+    ["Ladder ESP"] = "梯子透视",
+    ["Rainbow ESP"] = "彩虹透视",
+    ["Tracers ESP"] = "射线透视",
+    ["Distance Meters ESP"] = "距离透视",
+    ["Text Size"] = "文字大小",
+    ["Field of View"] = "视野范围",
+    ["Enable Field of View"] = "启用视野范围",
+    ["Third Person X"] = "第三人称 X",
+    ["Third Person Y"] = "第三人称 Y",
+    ["Third Person Z"] = "第三人称 Z",
+    ["Third Person"] = "第三人称",
+    ["Transparency"] = "透明度",
+    ["Transparency Closet"] = "衣柜透明",
+    ["Ambient"] = "环境光",
+    ["No Fog"] = "无雾",
+
+    -- 楼层工具
+    ["Anti-Seek Obstacles"] = "防止 Seek 障碍物",
+    ["Anti-Lookman"] = "防止 Lookman",
+    ["Anti-Snare"] = "防止陷阱",
+    ["Anti-Dupe"] = "防止 Dupe",
+    ["Anti-Banana"] = "防止香蕉",
+    ["Anti-Jeff"] = "防止 Jeff",
+    ["Anti-Vacuum"] = "防止真空",
+    ["Anti-GloomPile"] = "防止暗堆",
+    ["Anti-Lava"] = "防止岩浆",
+    ["Anti-ScaryWall"] = "防止恐怖墙",
+    ["Anti-Giggle"] = "防止 Giggle",
+
+    -- 远程控制
+    ["Unlock Both Rifts"] = "解锁双裂隙",
+    ["Reset"] = "重置",
+    ["Revive"] = "复活",
+    ["PlayAgain"] = "再玩一次",
+    ["Lobby"] = "大厅",
+
+    -- 禁用选项
+    ["Fix Closet Unhide"] = "修复衣柜隐藏",
+    ["Disable Walking Sounds"] = "禁用行走声音",
+    ["Disable Drawers Sounds"] = "禁用抽屉声音",
+    ["Disable Hide Vignette"] = "禁用躲藏暗角",
+    ["Show Entities Nodes"] = "显示实体节点",
+    ["Disable CutScenes"] = "禁用过场动画",
+    ["Anti Lag"] = "防止卡顿",
+
+    -- 其它
+    ["No Footer"] = "雷电出品",
+    ["Viewmodel"] = "视角模型",
+    ["No CamShake"] = "无镜头抖动",
+}
+
+-- 特殊替换（优先级更高）
+local specialReplacements = {
+    ["Infinite LockPicks/Skeleton"] = "无限撬锁器/骷髅钥匙",
+}
+
+-- 遍历UI并翻译
+local function translateUI(obj)
+    if obj:IsA("TextLabel") or obj:IsA("TextButton") then
+        if specialReplacements[obj.Text] then
+            obj.Text = specialReplacements[obj.Text]
+        elseif translations[obj.Text] then
+            obj.Text = translations[obj.Text]
+        end
+    end
+    for _, child in ipairs(obj:GetChildren()) do
+        translateUI(child)
+    end
+end
+
+-- 定时循环，防止UI刷新覆盖翻译
+task.spawn(function()
+    while true do
+        local playerGui = game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
+        if playerGui then
+            translateUI(playerGui)
+        end
+        task.wait(2)
+    end
+end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheHunterSolo1/Scripts/refs/heads/main/Protected_2809220311826785.lua.txt"))()
